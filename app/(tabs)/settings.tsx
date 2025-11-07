@@ -24,7 +24,10 @@ import {
 	SETTINGS_USERNAME,
 	SETTINGS_USERNAME_PLACEHOLDER,
 	DEFAULT_OVERSEERR_CONNECTION_TYPE,
-	DEFAULT_OVERSEERR_PORT
+	DEFAULT_OVERSEERR_PORT,
+	SETTINGS_KEY,
+	SETTINGS_KEY_PLACEHOLDER,
+	DEFAULT_OVERSEERR_API_AUTH_TYPE
 } from '@/lib/constants';
 
 export default function SettingScreen() {
@@ -35,6 +38,8 @@ export default function SettingScreen() {
 		apiPort,
 		apiUsername,
 		apiPassword,
+		apiKey,
+		apiAuthType,
 		hasValidSettings,
 		unsetClientConfig,
 		setOverseerClient
@@ -44,6 +49,8 @@ export default function SettingScreen() {
 	const [port, setPort] = useState<string>(apiPort)
 	const [username, setUsername] = useState<string>(apiUsername)
 	const [password, setPassword] = useState<string>(apiPassword)
+	const [key, setKey] = useState<string>(apiKey)
+	const [authType, setAuthType] = useState<string>(apiAuthType)
 	const [isValid, setIsValid] = useState<boolean>(hasValidSettings)
 	const router = useRouter();
 
@@ -52,19 +59,37 @@ export default function SettingScreen() {
 		{ id: 'https', label: 'HTTPS' },
 	]
 
+	const authTypeOptions = [
+		{ id: 'key', label: 'API Key' },
+		{ id: 'user', label: 'User Account'}
+	]
+
   async function test() {
-    // Test the API
-    const overseerrClient = new OverseerrClient({
-      BASE: `${connectionType}://${address}${port ? `:${port}` : ''}/api/v1`,
-    })
-    try {
-      await overseerrClient.auth.postAuthLocal({
-				email: username,
-				password: password
-			})
+		let testOverseerrClient: OverseerrClient
+		const connectionString = `${connectionType}://${address}${port ? `:${port}` : ''}/api/v1`
+		try {
+			if (authType === 'key') {
+				testOverseerrClient = new OverseerrClient({
+					BASE: connectionString,
+					HEADERS: {
+						'X-Api-Key': key
+					}
+				})
+				await testOverseerrClient.settings.getSettingsAbout()
+			} else {
+				testOverseerrClient = new OverseerrClient({
+					BASE: connectionString,
+				})
+				await testOverseerrClient.auth.postAuthLocal({
+					email: username,
+					password,
+				})
+			}
+    	// Test the API
       setIsValid(true)
       Alert.alert(CONNECTION_SUCCESSFUL)
     } catch (e: any) {
+			setIsValid(false)
       logError('Settings Test', e)
       Alert.alert(CONNECTION_FAILD)
     }
@@ -72,7 +97,7 @@ export default function SettingScreen() {
 
   async function save() {
 		try {
-			await setOverseerClient(connectionType, address, port, username, password)
+			await setOverseerClient(connectionType, address, port, username, password, key, authType)
     } catch (e) {
       logError('Settings Save Auth', e)
     }
@@ -96,6 +121,8 @@ export default function SettingScreen() {
             setPort(DEFAULT_OVERSEERR_PORT)
 						setUsername('')
 						setPassword('')
+						setKey('')
+						setAuthType(DEFAULT_OVERSEERR_API_AUTH_TYPE)
 						setTimeout(() => {
 							unsetClientConfig() // or whatever your clear function is called
 						}, 1000);
@@ -112,6 +139,7 @@ export default function SettingScreen() {
   }
 
 
+
   return (
     <ParallaxScrollView>
 			<ThemedText>Please enter all the server information and test your connection. You can only save the settings after a successful test.</ThemedText>
@@ -121,6 +149,40 @@ export default function SettingScreen() {
         selectedOption={connectionType}
         onOptionSelected={setConnectionType}
       />
+			<Picker
+				label="Authentication Type"
+				options={authTypeOptions}
+				selectedOption={authType}
+				onOptionSelected={setAuthType}
+			/>
+			{authType === 'user' &&
+				<>
+					<ThemedText>{SETTINGS_USERNAME}</ThemedText>
+					<ThemedTextInput
+						value={username}
+						onChangeText={setUsername}
+						placeholder={SETTINGS_USERNAME_PLACEHOLDER}
+					/>
+					<ThemedText>{SETTINGS_PASSWORD}</ThemedText>
+					<ThemedTextInput
+						value={password}
+						secureTextEntry={true}
+						onChangeText={setPassword}
+						placeholder={SETTINGS_PASSWORD_PLACEHOLDER}
+					/>
+				</>
+			}
+			{authType === 'key' &&
+				<>
+					<ThemedText>{SETTINGS_KEY}</ThemedText>
+					<ThemedTextInput
+						value={key}
+						onChangeText={setKey}
+						placeholder={SETTINGS_KEY_PLACEHOLDER}
+					/>
+				</>
+			}
+
 			<ThemedText>{SETTINGS_ADDRESS}</ThemedText>
       <ThemedTextInput
         value={address}
@@ -133,19 +195,6 @@ export default function SettingScreen() {
         onChangeText={setPort}
         placeholder={SETTINGS_PORT_PLACEHOLDER}
         keyboardType='numeric'
-      />
-      <ThemedText>{SETTINGS_USERNAME}</ThemedText>
-      <ThemedTextInput
-        value={username}
-        onChangeText={setUsername}
-        placeholder={SETTINGS_USERNAME_PLACEHOLDER}
-      />
-      <ThemedText>{SETTINGS_PASSWORD}</ThemedText>
-      <ThemedTextInput
-        value={password}
-				secureTextEntry={true}
-        onChangeText={setPassword}
-        placeholder={SETTINGS_PASSWORD_PLACEHOLDER}
       />
       <ThemedView style={styles.buttonRow}>
 				<TvButton disabled={!address && !port} onPress={clear} type={TvButtonType.destructive} title="Clear" />

@@ -2,6 +2,7 @@
 export const DEFAULT_REFETCH_INTERVAL = 30000
 export const DEFAULT_OVERSEERR_CONNECTION_TYPE = 'http'
 export const DEFAULT_OVERSEERR_PORT = '5055'
+export const DEFAULT_OVERSEERR_API_AUTH_TYPE = 'key'
 export const MAX_FETCH_PAGES = 10
 
 // URLS
