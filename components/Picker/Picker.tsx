@@ -11,10 +11,7 @@ interface PickerProps {
 }
 
 const Picker: React.FC<PickerProps> = ({ label, options, selectedOption, onOptionSelected }) => {
-	console.log("Selected Option:",selectedOption)
-	console.log("Options:", options)
 	const index = options.findIndex((option) => option.id === selectedOption);
-	console.log("index:", index)
 	const [selectedOptionIndex, setSelectedOptionIndex] = useState(index !== -1 ? index : 0);
 	const scale = useScale();
 	const styles = usePickerStyles(scale);

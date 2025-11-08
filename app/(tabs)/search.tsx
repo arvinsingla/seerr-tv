@@ -10,6 +10,7 @@ import { ThemedText } from '@/components/ThemedText';
 import useAppStore from '@/lib/store';
 import { MediaType } from '@/lib/types';
 import { MovieResult, PersonResult, TvResult } from '@/lib/OverseerrClient';
+import { EMPTY_SETTINGS_TEXT } from '../../lib/constants';
 
 export default function SearchScreen() {
 	const [searchString, setSearchString] = useState('')
@@ -69,7 +70,7 @@ export default function SearchScreen() {
 	if (!hasValidSettings) {
 			return (
 				<ParallaxScrollView>
-					<ThemedText>Please visit the settings tab to configure your settings and view this content.</ThemedText>
+					<ThemedText>{EMPTY_SETTINGS_TEXT}</ThemedText>
 				</ParallaxScrollView>
 			)
 		}

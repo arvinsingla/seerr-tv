@@ -9,7 +9,7 @@ import HorizontalCategoryList, { Category } from "@/components/HorizontalCategor
 import MoreListItem from '@/components/MoreListItem/MoreListItem';
 import { useScale } from '@/hooks/useScale';
 import useAppStore from '@/lib/store';
-import { DEFAULT_REFETCH_INTERVAL } from "@/lib/constants";
+import { DEFAULT_REFETCH_INTERVAL, EMPTY_SETTINGS_TEXT } from "@/lib/constants";
 import { MediaType } from '@/lib/types';
 import { MovieResult, PersonResult, TvResult } from '@/lib/OverseerrClient';
 import { studios, networks } from '@/lib/maps'
@@ -56,7 +56,7 @@ export default function DiscoveryScreen() {
 	if (!hasValidSettings) {
 		return (
 			<ParallaxScrollView>
-				<ThemedText>Please visit the settings tab to configure your settings and view this content.</ThemedText>
+				<ThemedText>{EMPTY_SETTINGS_TEXT}</ThemedText>
 			</ParallaxScrollView>
 		)
 	}

@@ -13,7 +13,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ header }) => {
 	const navigation = useNavigation()
-	const { client, setUser } = useAppStore()
+	const { client } = useAppStore()
 	const queryClient = useQueryClient();
 	const { route } = header
 	const isSettingsPage = route.name === "Settings"
@@ -23,12 +23,6 @@ const Header: React.FC<HeaderProps> = ({ header }) => {
 		queryFn: () => client?.auth.getAuthMe()
 	})
 
-	useEffect(() => {
-		if (userData) {
-			setUser(userData)
-		}
-	}, [userData]);
-
 	function onPressRefresh() {
 		Alert.alert(
 			`Refresh data`,
@@ -37,7 +31,6 @@ const Header: React.FC<HeaderProps> = ({ header }) => {
 				{
 					text: 'Confirm',
 					onPress: async () => {
-						console.log(queryClient)
 						queryClient.invalidateQueries();
 					},
 					style: 'destructive',
