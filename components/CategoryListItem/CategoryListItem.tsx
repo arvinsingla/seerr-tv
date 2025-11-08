@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import { TMDB_IMAGE_URL, TMDB_IMAGE_URL_FILTER } from '@/lib/constants'
+import { TMDB_IMAGE_URL, TMDB_LOGO_IMAGE_URL_FILTER } from '@/lib/constants'
 import { Category } from '../HorizontalCategoryList/HorizontalCategoryList'
 import { normalizeSize } from '@/lib/utils'
 
@@ -27,7 +27,7 @@ const CategoryListItem: React.FC<CategoryListItemProps> = ({ category, onPress, 
     >
       {isLogo &&
         <Image
-          source={{ uri: `${TMDB_IMAGE_URL_FILTER}${backdrops[randomIndex]}` }}
+          source={{ uri: `${TMDB_LOGO_IMAGE_URL_FILTER}${backdrops[randomIndex]}` }}
           resizeMode="contain"
           style={[
             styles.logo,

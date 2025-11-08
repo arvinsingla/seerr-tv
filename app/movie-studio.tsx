@@ -6,13 +6,13 @@ import { ThemedScrollView } from '@/components/ThemedScrollView';
 import useAppStore from '@/lib/store';
 import { useEffect } from 'react';
 import { normalizeSize } from '@/lib/utils';
-import { MAX_FETCH_PAGES, TMDB_IMAGE_URL, TMDB_IMAGE_URL_FILTER} from "@/lib/constants";
+import { MAX_FETCH_PAGES, TMDB_LOGO_IMAGE_URL, TMDB_LOGO_IMAGE_URL_FILTER} from "@/lib/constants";
 
 export default function MovieStudioScreen() {
 	const { client } = useAppStore()
   const router = useRouter()
 	const scheme = useColorScheme()
-	const imgBaseURL = scheme === 'dark' ? TMDB_IMAGE_URL_FILTER : TMDB_IMAGE_URL
+	const imgBaseURL = scheme === 'dark' ? TMDB_LOGO_IMAGE_URL_FILTER : TMDB_LOGO_IMAGE_URL
 
 	const { id, backdrops } = useLocalSearchParams();
 	const idString = Array.isArray(id) ? id[0] : id as string
@@ -46,6 +46,7 @@ export default function MovieStudioScreen() {
   }
 
 	const uri = `${imgBaseURL}${backdropString}`
+	console.log('URI:', uri);
   const header = (
     <View style={{ alignItems: 'center', marginTop: normalizeSize(20), marginBottom: normalizeSize(20) }}>
       <Image

@@ -6,8 +6,9 @@ export const DEFAULT_OVERSEERR_API_AUTH_TYPE = 'key'
 export const MAX_FETCH_PAGES = 10
 
 // URLS
-export const TMDB_IMAGE_URL = 'https://image.tmdb.org/t/p/w300_and_h450_bestv2/'
-export const TMDB_IMAGE_URL_FILTER = 'https://image.tmdb.org/t/p/w780_filter(duotone,ffffff,bababa)/'
+export const TMDB_IMAGE_URL = 'https://image.tmdb.org/t/p/w300_and_h450_bestv2'
+export const TMDB_LOGO_IMAGE_URL = 'https://image.tmdb.org/t/p/w780'
+export const TMDB_LOGO_IMAGE_URL_FILTER = 'https://image.tmdb.org/t/p/w780_filter(duotone,ffffff,bababa)'
 export const ERROR_URL = 'https://us-central1-overseerr-tv.cloudfunctions.net/errorLog'
 
 // STRINGS

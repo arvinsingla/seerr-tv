@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { StyleSheet, SafeAreaView, Image, TouchableOpacity, View, Alert } from 'react-native'
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigation } from '@react-navigation/native';
