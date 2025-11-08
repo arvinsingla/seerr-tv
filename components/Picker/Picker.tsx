@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Pressable, Text, StyleSheet } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { useTheme } from '@react-navigation/native';
@@ -11,7 +11,10 @@ interface PickerProps {
 }
 
 const Picker: React.FC<PickerProps> = ({ label, options, selectedOption, onOptionSelected }) => {
+	console.log("Selected Option:",selectedOption)
+	console.log("Options:", options)
 	const index = options.findIndex((option) => option.id === selectedOption);
+	console.log("index:", index)
 	const [selectedOptionIndex, setSelectedOptionIndex] = useState(index !== -1 ? index : 0);
 	const scale = useScale();
 	const styles = usePickerStyles(scale);
@@ -21,6 +24,13 @@ const Picker: React.FC<PickerProps> = ({ label, options, selectedOption, onOptio
     setSelectedOptionIndex(nextIndex);
     onOptionSelected(options[nextIndex].id);
   };
+
+	useEffect(() => {
+		const newIndex = options.findIndex((option) => option.id === selectedOption);
+		if (newIndex !== -1) {
+			setSelectedOptionIndex(newIndex);
+		}
+	}, [selectedOption, options]);
 
   return (
     <View style={styles.container}>
