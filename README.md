@@ -1,79 +1,118 @@
-# Expo Router TV demo 👋
+# seerrTV
 
-![Apple TV screen shot](https://github.com/douglowder/examples/assets/6577821/a881466f-a7a0-4c66-b1fc-33235c466997)
-![Android TV screen shot](https://github.com/douglowder/examples/assets/6577821/815c8e01-8275-4cc1-bd57-b9c8bce1fb02)
+A React Native application for Apple TV that serves as a frontend for Overseerr (or Jellyseerr), built using react-native-tvos.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
+
+seerrTV brings the power of seerr (formerly Overseerr and Jellyseerr) to your Apple TV, allowing you to manage and request media directly from your television. Built with react-native-tvos, this application provides a native tvOS experience while maintaining the functionality you love from Overseerr.
+
+## Features
+
+- Native tvOS interface optimized for television displays
+- Browse and search available media
+- Request new movies and TV shows
+
+## Prerequisites
+
+- Node.js (version 18 or higher)
+- Xcode (latest version recommended)
+- CocoaPods
+- An existing Overseerr or Jellyseerr instance
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/arvinsingla/seerr-tv.git
+cd seerr-tv
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Install iOS dependencies:
+```bash
+cd ios
+pod install
+cd ..
+```
+
+4. Run the application:
+```bash
+npm run tvos
+# or
+yarn tvos
+```
+
+## Development Environment Setup
 
 This project uses
 
 - the [React Native TV fork](https://github.com/react-native-tvos/react-native-tvos), which supports both phone (Android and iOS) and TV (Android TV and Apple TV) targets
 - the [React Native TV config plugin](https://github.com/react-native-tvos/config-tv/tree/main/packages/config-tv) to allow Expo prebuild to modify the project's native files for TV builds
 
-## 🚀 How to use
+Make sure you have the following tools installed and configured:
+- Xcode with tvOS SDK
+- Apple TV Simulator or physical Apple TV device
+- React Native development environment
 
-- `cd` into the project
+## Contributing
 
-- For TV development:
+We welcome contributions from the community! Whether it's bug fixes, feature additions, or documentation improvements, your help is appreciated.
 
-```sh
-yarn
-yarn prebuild:tv # Executes clean Expo prebuild with TV modifications
-yarn ios # Build and run for Apple TV
-yarn android # Build for Android TV
-yarn web # Run the project on web from localhost
-```
-- For mobile development:
+### How to Contribute
 
-```sh
-yarn
-yarn prebuild # Executes Expo prebuild with no TV modifications
-yarn ios # Build and run for iOS
-yarn android # Build for Android mobile
-yarn web # Run the project on web from localhost
-```
-
-> **_NOTE:_**
-> Setting the environment variable `EXPO_TV=1` enables the `@react-native-tvos/config-tv` plugin to modify the project for TV.
-> This can also be done by setting the parameter `isTV` to true in the `app.json`.
-
-## Development
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-This project includes a [demo](./components/EventHandlingDemo.tsx) showing how to use React Native TV APIs to highlight controls as the user navigates the screen with the remote control.
-
-## Deploy
-
-Deploy on all platforms with Expo Application Services (EAS).
-
-- Deploy the website: `npx eas-cli deploy` — [Learn more](https://docs.expo.dev/eas/hosting/get-started/)
-- Deploy on iOS and Android using: `npx eas-cli build` — [Learn more](https://expo.dev/eas)
-
-## TV specific file extensions
-
-This project includes an [example Metro configuration](./metro.config.js) that allows Metro to resolve application source files with TV-specific code, indicated by specific file extensions (`*.ios.tv.tsx`, `*.android.tv.tsx`, `*.tv.tsx`).
-
-## Get a fresh project
-
-When you're ready, run:
-
+1. Fork the repository
+2. Create a new branch for your feature or fix:
 ```bash
-npm run reset-project
+git checkout -b feature/your-feature-name
+# or
+git checkout -b fix/your-fix-name
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+3. Make your changes
+4. Commit your changes with clear, descriptive commit messages
+5. Push to your fork
+6. Submit a Pull Request
 
-## Learn more
+### Pull Request Guidelines
 
-To learn more about developing your project with Expo, look at the following resources:
+- Provide a clear description of the changes
+- Include any relevant issue numbers
+- Ensure your code follows the existing style
+- Add tests if applicable
+- Update documentation as needed
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/learn): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Code Style
 
-## Join the community
+- Follow the existing code style
+- Use meaningful variable and function names
+- Comment complex logic
+- Keep functions focused and concise
 
-Join our community of developers creating universal apps.
+## License
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0).
+This means:
+
+- You must disclose your source code when you distribute this software
+- If you modify and use this software in a network service (like a web app), you must make your modified source code available
+- You must state all significant changes made to the software
+- You must include the original copyright and license notices
+- You cannot use this software for commercial purposes without explicit permission
+
+For more details, see the [full license text](https://www.gnu.org/licenses/agpl-3.0.en.html).
+
+## Support
+
+For support, please:
+- Open an issue in the repository
+
+## Acknowledgments
+
+- [react-native-tvos](https://github.com/react-native-tvos/react-native-tvos) team
+- [seerr](https://github.com/seerr-team/seerr) project
