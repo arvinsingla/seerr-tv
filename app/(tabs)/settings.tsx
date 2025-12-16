@@ -64,6 +64,8 @@ export default function SettingScreen() {
 		{ id: 'user', label: 'User Account'}
 	]
 
+	console.log("API Auth type", apiAuthType)
+
   async function test() {
 		let testOverseerrClient: OverseerrClient
 		const connectionString = `${connectionType}://${address}${port ? `:${port}` : ''}/api/v1`

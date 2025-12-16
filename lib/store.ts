@@ -116,7 +116,7 @@ const useAppStore = create<AppState>()((set) => ({
 			await AsyncStorage.setItem('apiAuthType', apiAuthType)
 		}
 		const client = instantiateClient(apiConnectionType, apiAddress, apiPort, apiUsername, apiPassword, apiKey, apiAuthType)
-		set(() => ({ apiConnectionType, apiAddress, apiPort, apiUsername, apiPassword, client, hasValidSettings: true }))
+		set(() => ({ apiConnectionType, apiAddress, apiPort, apiUsername, apiPassword, apiAuthType, client, hasValidSettings: true }))
 	},
 	fetchInitialData: async () => {
 		let apiConnectionType = ''
@@ -143,7 +143,11 @@ const useAppStore = create<AppState>()((set) => ({
 			apiKey = await AsyncStorage.getItem('apiKey') ?? ''
 			apiAuthType = (await AsyncStorage.getItem('apiAuthType') as string) ?? DEFAULT_OVERSEERR_API_AUTH_TYPE
 		}
-		if (apiAddress && apiUsername && apiPassword) {
+		if (apiAddress && (apiAuthType === 'user' && apiUsername && apiPassword)) {
+			const client = instantiateClient(apiConnectionType, apiAddress, apiPort, apiUsername, apiPassword, apiKey, apiAuthType)
+			set({ apiConnectionType, apiAddress, apiPort, apiUsername, apiPassword, apiAuthType, client, hasValidSettings: true })
+		}
+		if (apiAddress && apiAuthType === 'key' && apiKey) {
 			const client = instantiateClient(apiConnectionType, apiAddress, apiPort, apiUsername, apiPassword, apiKey, apiAuthType)
 			set({ apiConnectionType, apiAddress, apiPort, apiUsername, apiPassword, client, hasValidSettings: true })
 		}

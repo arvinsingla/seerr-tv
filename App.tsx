@@ -43,8 +43,8 @@ const Stack = createNativeStackNavigator<RootStackParamList>()
 const queryClient = new QueryClient()
 
 function App(): JSX.Element {
-  const { apiKey, apiAddress } = useAppStore()
-  const hasServerSettings = apiKey && apiAddress
+  const { apiKey, apiPassword, apiAddress } = useAppStore()
+  const hasServerSettings = (apiKey || apiPassword) && apiAddress
 	const scheme = useColorScheme()
   return (
     <QueryClientProvider client={queryClient}>
